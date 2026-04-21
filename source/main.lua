@@ -10,7 +10,7 @@ local playerStartY = 230
 local playerSpeed = 3
 local playerImage = gfx.image.new("img/paw")
 local playerSprite = gfx.sprite.new(playerImage)
-local splashscreen = gfx.image.new("img/splashscreen")
+local splashscreen = gfx.image.new("img/splashscreen2")
 playerSprite:setCollideRect(0, 50, 20, 50) --x, y relative to sprite, size of sprite in px
 playerSprite:moveTo(playerStartX, playerStartY)
 playerSprite:add()
