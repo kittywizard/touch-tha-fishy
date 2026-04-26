@@ -20,7 +20,7 @@ playerSprite:add()
 local gameState = "stopped"
 local score = 0
 
--- obstacle
+-- obstacle (aka the fishy)
 local obstacleSpeed = 0
 local obstacleImage = gfx.image.new("img/fish")
 local obstacleSprite = gfx.sprite.new(obstacleImage)
@@ -29,12 +29,42 @@ obstacleSprite:setCollideRect(0, 0, 57, 57)
 obstacleSprite:moveTo(200, 20)
 obstacleSprite:add()
 
+-- the mean human stopping you from touching the fishy!
+local humanEnemyImage = gfx.image.new('img/human')
+local humanEnemy = gfx.sprite.new(humanEnemyImage)
+humanEnemy.setZIndex(humanEnemy, 100)
+humanEnemy:moveTo(0,0)
+humanEnemy:add()
+
+-- countdown display TBD
+local fishyCountdown = 0
+local fishyCountdownSprite = gfx.sprite.new()
+fishyCountdownSprite:setSize(200, 20)
+function fishyCountdownSprite:draw()
+    gfx.fillRect(0, 0, 200, 40)
+end
+
+fishyCountdownSprite:moveTo(200, 50)
+fishyCountdownSprite:add()
+
+-- timer setup
+-- pd.timer.new(1000, callback())
+
+-- create new timer with default amount of time. as the game progresses, lower this timer variable
+-- in each game loop, run timer and user will move towards fishy but the the 'human' will appear randomly to stop them
+-- after three failed attempts (being caught) game will end
+-- will need method to randomly insert human appearance 
+
+
+
 local lastCrankPosition = 0
 
 function pd.update()
     -- 30 FPS
 
     gfx.sprite:update()
+    -- pd.timer.updateTimers()
+
     if gameState == "stopped" then
         splashscreen:draw(0, 0)
         --gfx.drawTextAligned("press A to start", 200, 40, kTextAlignment.center)
@@ -50,9 +80,10 @@ function pd.update()
         -- crank will control up and down , aka how close you can get to the fishy
         local crankPosition = pd.getCrankPosition()
 
-        -- this if statement will move very time this thing updateds.
+        -- checking to make sure crank isn't constantly moving
         if lastCrankPosition ~= crankPosition then
             lastCrankPosition = crankPosition
+
             if crankPosition <= 90 or crankPosition >= 270 then
                 playerSprite:moveBy(0, -playerSpeed)
             elseif crankPosition > 90 or crankPosition < 270 then
@@ -62,6 +93,7 @@ function pd.update()
             end 
         end
 
+        -- left and right movement
         if pd.buttonJustPressed(pd.kButtonLeft) then
             playerSprite:moveBy(-playerSpeed + 5, 0)
         elseif pd.buttonJustPressed(pd.kButtonRight) then
@@ -74,6 +106,7 @@ function pd.update()
         --     obstacleSprite:moveTo(20, math.random(40, 200))
         --     score += 1
         -- end
+
         if length > 0 then
             score += 1
             -- gameState = "stopped"
