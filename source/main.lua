@@ -1,6 +1,7 @@
 import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
+import "./imports/AnimatedSprite"
 
 local pd = playdate
 local gfx = pd.graphics
@@ -35,6 +36,7 @@ local humanEnemyImage = gfx.image.new('img/human')
 local humanEnemy = gfx.sprite.new(humanEnemyImage)
 humanEnemy.setZIndex(humanEnemy, 100)
 
+local health = 3
 
 -- countdown display TBD
 local fishyCountdown = 5000
@@ -116,4 +118,5 @@ function pd.update()
     end
 
     gfx.drawTextAligned("Score: " .. score, 390, 10, kTextAlignment.right)
+    gfx.drawTextAligned("Lives:" .. health, 400, 20, kTextAlignment.right) -- make way nicer
 end
