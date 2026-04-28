@@ -1,5 +1,6 @@
 import "CoreLibs/graphics"
 import "CoreLibs/sprites"
+import "CoreLibs/timer"
 
 local pd = playdate
 local gfx = pd.graphics
@@ -33,28 +34,23 @@ obstacleSprite:add()
 local humanEnemyImage = gfx.image.new('img/human')
 local humanEnemy = gfx.sprite.new(humanEnemyImage)
 humanEnemy.setZIndex(humanEnemy, 100)
-humanEnemy:moveTo(0,0)
-humanEnemy:add()
+
 
 -- countdown display TBD
-local fishyCountdown = 0
-local fishyCountdownSprite = gfx.sprite.new()
-fishyCountdownSprite:setSize(200, 20)
-function fishyCountdownSprite:draw()
-    gfx.fillRect(0, 0, 200, 40)
+local fishyCountdown = 5000
+
+
+function callHuman()
+    print('timer ran')
+    humanEnemy:moveTo(20,50)
+    humanEnemy:add()
 end
-
-fishyCountdownSprite:moveTo(200, 50)
-fishyCountdownSprite:add()
-
 -- timer setup
--- pd.timer.new(1000, callback())
 
 -- create new timer with default amount of time. as the game progresses, lower this timer variable
 -- in each game loop, run timer and user will move towards fishy but the the 'human' will appear randomly to stop them
 -- after three failed attempts (being caught) game will end
 -- will need method to randomly insert human appearance 
-
 
 
 local lastCrankPosition = 0
@@ -63,7 +59,7 @@ function pd.update()
     -- 30 FPS
 
     gfx.sprite:update()
-    -- pd.timer.updateTimers()
+    pd.timer.updateTimers()
 
     if gameState == "stopped" then
         splashscreen:draw(0, 0)
@@ -75,6 +71,8 @@ function pd.update()
             obstacleSpeed = 0
             playerSprite:moveTo(playerStartX, playerStartY)
             obstacleSprite:moveTo(math.random(20, 200), 0)
+            pd.timer.new(fishyCountdown, callHuman)
+
         end
     elseif gameState == "active" then
         -- crank will control up and down , aka how close you can get to the fishy
