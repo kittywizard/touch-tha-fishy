@@ -98,6 +98,7 @@ function pd.update()
 
         -- left and right movement
         if pd.buttonJustPressed(pd.kButtonLeft) then
+            -- tweak these numbers to have better bounding boxes
             if playerSprite.x> 0 then     
                 playerSprite:moveBy(-playerSpeed - 8, 0)
             end
@@ -112,17 +113,12 @@ function pd.update()
         -- if obstacleSprite.x < -20 then
         --     obstacleSprite:moveTo(20, math.random(40, 200))
         --     score += 1
-        -- end
+        -- end  
 
         if length > 0 then
             score += 1
             -- gameState = "stopped"
             obstacleSprite:moveTo(20, math.random(40, 200))
-        end
-        -- just prevent character from going out of bounds?
-        if playerSprite.y > 270 or playerSprite.y < -30  then
-            -- gameState = "stopped"
-            print('just testing..')
         end
     end
 
