@@ -24,7 +24,7 @@ local score = 0
 
 -- obstacle (aka the fishy)
 local obstacleSpeed = 0
-local obstacleImage = gfx.image.new("img/fish")
+local obstacleImage = gfx.image.new("img/fishy2")
 local obstacleSprite = gfx.sprite.new(obstacleImage)
 obstacleSprite.collisionResponse = gfx.sprite.kCollisionTypeOverlap
 obstacleSprite:setCollideRect(0, 0, 57, 57)

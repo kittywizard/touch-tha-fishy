@@ -1,5 +1,7 @@
 // Workspace settings - documentation can be found at: https://code.visualstudio.com/docs/getstarted/settings
 {
+
+
     // ====== Lua Settings ======
     // The Playdate Lua runtime uses "import" instead of "require"
     "Lua.diagnostics.globals": ["import"],
@@ -24,6 +26,7 @@
         "os": "disable",
         "package": "disable"
     },
+    
     // The Playdate Lua runtime adds additional assignment operators not present in the default Lua runtime:
     // https://sdk.play.date/Inside%20Playdate.html#additional-assignment-operators
     "Lua.runtime.nonstandardSymbol": ["+=", "-=", "*=", "/=", "//=", "%=", "<<=", ">>=", "&=", "|=", "^="],
@@ -36,5 +39,7 @@
 
     // ====== Playdate Debug Settings ======
     // Output directory for the compiled game bundle (omitting this places it in the project root)
-    "playdate-debug.outputPath": "builds"
+    "playdate-debug.outputPath": "builds",
+    "playdate.sdkP  ath": "/home/marleigh/Documents/PlaydateSDK-3.0.6",
+
 }
