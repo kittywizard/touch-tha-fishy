@@ -7,6 +7,8 @@ local pd = playdate
 local gfx = pd.graphics
 
 local splashscreen = gfx.image.new("img/splashscreen2")
+
+
 -- player example of the axis: x = 400/ y = 240 (bottom left corner)
 local playerStartX = 40
 local playerStartY = 230
@@ -39,12 +41,13 @@ humanEnemy.setZIndex(humanEnemy, 100)
 local health = 3
 
 -- countdown display TBD
-local fishyCountdown = 5000
+    -- don't want numbers displayed, but some sort of indicator that the human will appear
+local fishyCountdown = 10000
 
 
-function callHuman()
+local function callHuman()
     print('timer ran')
-    humanEnemy:moveTo(20,50)
+    humanEnemy:moveTo(30,50)
     humanEnemy:add()
 end
 -- timer setup
@@ -72,7 +75,7 @@ function pd.update()
             score = 0
             obstacleSpeed = 0
             playerSprite:moveTo(playerStartX, playerStartY)
-            obstacleSprite:moveTo(math.random(20, 200), 0)
+            obstacleSprite:moveTo(math.random(20, 200), 10)
             pd.timer.new(fishyCountdown, callHuman)
 
         end
@@ -95,9 +98,13 @@ function pd.update()
 
         -- left and right movement
         if pd.buttonJustPressed(pd.kButtonLeft) then
-            playerSprite:moveBy(-playerSpeed + 5, 0)
+            if playerSprite.x> 0 then     
+                playerSprite:moveBy(-playerSpeed - 8, 0)
+            end
         elseif pd.buttonJustPressed(pd.kButtonRight) then
-            playerSprite:moveBy(playerSpeed + 5, 0)
+            if playerSprite.x < 400 then
+                playerSprite:moveBy(playerSpeed + 8, 0)
+            end
         end
 
         local actualX, actualY, collisions, length = obstacleSprite:moveWithCollisions(obstacleSprite.x - obstacleSpeed, obstacleSprite.y)
@@ -112,11 +119,13 @@ function pd.update()
             -- gameState = "stopped"
             obstacleSprite:moveTo(20, math.random(40, 200))
         end
+        -- just prevent character from going out of bounds?
         if playerSprite.y > 270 or playerSprite.y < -30  then
-            gameState = "stopped"
+            -- gameState = "stopped"
+            print('just testing..')
         end
     end
 
-    gfx.drawTextAligned("Score: " .. score, 390, 10, kTextAlignment.right)
-    gfx.drawTextAligned("Lives:" .. health, 400, 20, kTextAlignment.right) -- make way nicer
+    gfx.drawTextAligned("Score: " .. score, 350, 10, kTextAlignment.left)
+    gfx.drawTextAligned("Lives:" .. health, 350, 40, kTextAlignment.left) 
 end
