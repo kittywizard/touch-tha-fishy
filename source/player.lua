@@ -1,7 +1,7 @@
 local pd = playdate
 local gfx = pd.graphics
 
-class('Player') extends(gfx.sprite)
+class('Player').extends(gfx.sprite)
 
 function Player:init(x, y)
   -- player example of the axis: x = 400/ y = 240 (bottom left corner)
@@ -10,4 +10,12 @@ function Player:init(x, y)
     local playerSpeed = 2
     local playerImage = gfx.image.new("img/paw")
     local playerSprite = gfx.sprite.new(playerImage) 
+
+    playerSprite:setCollideRect(0, 0, 20, 50) --x, y relative to sprite, size of sprite in px
+    playerSprite:moveTo(playerStartX, playerStartY)
+    playerSprite:add()
+end
+
+function Player:update()
+  -- movement?
 end

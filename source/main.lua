@@ -3,6 +3,8 @@ import "CoreLibs/sprites"
 import "CoreLibs/timer"
 import "./imports/AnimatedSprite"
 
+-- import "player"
+
 local pd = playdate
 local gfx = pd.graphics
 
@@ -20,6 +22,7 @@ playerSprite:setCollideRect(0, 0, 20, 50) --x, y relative to sprite, size of spr
 playerSprite:moveTo(playerStartX, playerStartY)
 playerSprite:add()
 
+-- Player(100,100)
 -- game state
 local gameState = "stopped"
 local score = 0
